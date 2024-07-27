@@ -3,7 +3,7 @@
     "password": "Trailblazer2024!",
     "clusterUrl": "trailblazer.z7qhd1z.mongodb.net",
     "database": "trailblazer",
-    "apiurl": "http://localhost:3000",
+    "apiurl": "https://jedae.vercel.app",
     "port": 3000,
     "imgBucket": "photos"
 }
