@@ -24,8 +24,9 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:8081",
-  "https://trailblazergo.com",
-  "https://trailblazer-flame.vercel.app",
+  "http://jedae-frontend.vercel.app",
+  // "https://trailblazergo.com",
+  // "https://trailblazer-flame.vercel.app",
 ];
 
 app.use(
