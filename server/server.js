@@ -16,7 +16,7 @@ admin.initializeApp({
 });
 
 const app = express();
-const Config = require("../config/config.json");
+const Config = require("./config/config.json");
 const port = Config.port;
 
 // Middleware for parsing JSON bodies
@@ -45,8 +45,8 @@ app.use(
 );
 
 // Import routes
-const appointmentsRoutes = require("./routes/appointments");
-const usersRoutes = require("./routes/users");
+const appointmentsRoutes = require("./api/routes/appointments");
+const usersRoutes = require("./api/routes/users");
 
 // Use routes
 app.use("/api/appointments", appointmentsRoutes);
