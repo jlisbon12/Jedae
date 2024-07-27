@@ -29,34 +29,24 @@ export default function App() {
   });
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        user.getIdToken().then((token) => {
-          const url = new URL(`${Config.apiurl}/api/users/${user.uid}`);
-          fetch(url.toString(), {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error("Error connecting to the database.");
-              }
-            })
-            .then((data) => {
-              console.log("Fetched User Data: ", data); // Debugging statement
-              setUser({ ...data, token });
-              setIsLoggedIn(true);
-              fetchAppointments(data._id, data.role, token);
-            })
-            .catch((error) => {
-              console.log(error);
-              const container = document.getElementById("container");
-              container.innerHTML = `<p>Something went wrong. Error message: ${error.message}</p>`;
-            });
+        const token = await user.getIdToken();
+        const url = new URL(`${Config.apiurl}/api/users/${user.uid}`);
+        const response = await fetch(url.toString(), {
+          headers: {
+            Authorization: Bearer`${token}`,
+          },
         });
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched User Data: ", data); // Debugging statement
+          setUser({ ...data, token });
+          setIsLoggedIn(true);
+          fetchAppointments(data._id, data.role, token);
+        } else {
+          console.log("Error connecting to the database.");
+        }
       } else {
         setUser(null);
         setIsLoggedIn(false);
@@ -70,7 +60,7 @@ export default function App() {
     url.searchParams.append("role", role);
     const response = await fetch(url.toString(), {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: Bearer`${token}`,
       },
     });
     const data = await response.json();
